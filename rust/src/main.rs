@@ -29,7 +29,7 @@ impl GameBoard {
     };
   }
 
-  fn get(& self, index: usize) -> bool { self.storage[index] }
+  fn get_int(& self, index: usize) -> u8 { self.storage[index] as u8 }
 
   fn len(& self) -> usize { self.storage.len() }
 }
@@ -46,21 +46,19 @@ fn add_row(index: i32, count: i32, row_len: usize, tot_len: usize) -> usize {
   return raw_idx as usize;
 }
 
-fn btoint(val: bool) -> u8 { if val { 1 } else { 0 } }
-
 fn count_neighbors(index: usize, board: & GameBoard) -> u8 {
   let board_len = board.len();
   let board_side = board.board_side;
   let sindex: i32 = index as i32;
   return {
-    btoint(board.get(add_row(sindex - 1, -1, board_side, board_len))) + // UL
-    btoint(board.get(add_row(sindex, -1, board_side, board_len))) + // U
-    btoint(board.get(add_row(sindex + 1, -1, board_side, board_len))) + // UR
-    btoint(board.get(add_row(sindex - 1, 0, board_side, board_len))) + // L
-    btoint(board.get(add_row(sindex + 1, 0, board_side, board_len))) + // R
-    btoint(board.get(add_row(sindex - 1, 1, board_side, board_len))) + // BL
-    btoint(board.get(add_row(sindex, 1, board_side, board_len))) + // B
-    btoint(board.get(add_row(sindex + 1, 1, board_side, board_len))) // BR
+    board.get_int(add_row(sindex - 1, -1, board_side, board_len)) + // UL
+    board.get_int(add_row(sindex, -1, board_side, board_len)) + // U
+    board.get_int(add_row(sindex + 1, -1, board_side, board_len)) + // UR
+    board.get_int(add_row(sindex - 1, 0, board_side, board_len)) + // L
+    board.get_int(add_row(sindex + 1, 0, board_side, board_len)) + // R
+    board.get_int(add_row(sindex - 1, 1, board_side, board_len)) + // BL
+    board.get_int(add_row(sindex, 1, board_side, board_len)) + // B
+    board.get_int(add_row(sindex + 1, 1, board_side, board_len)) // BR
   };
 }
 
@@ -103,9 +101,16 @@ fn t_new_board() {
 fn main() {
   const BOARD_SIDE: usize = 30;
   let mut main_board = GameBoard::rand(BOARD_SIDE);
+  let mut count = 0;
   loop {
     main_board = update_board(main_board);
+
+    // Print a nice little header
+    count += 1;
+    println!("--------------------------------------------------------- {}", count);
+
     print_board(& main_board);
+
     thread::sleep(time::Duration::from_millis(500));
   }
 }
