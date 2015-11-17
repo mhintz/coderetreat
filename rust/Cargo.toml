@@ -1,0 +1,6 @@
+[package]
+name = "coderetreat"
+version = "0.0.0"
+
+[dependencies]
+rand = "*"
