@@ -31,7 +31,7 @@ function drawBoard(board) {
 
 var mainBoard = createBoard();
 
-function idx(i) { return i < 0 ? BOARD_SIDE - 1 : i % BOARD_SIDE; }
+function idx(i) { return i < 0 ? BOARD_SIDE + i : i % BOARD_SIDE; }
 
 function countNeighbors(x, y, board) {
   return (
