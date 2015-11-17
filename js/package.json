@@ -1,0 +1,14 @@
+{
+  "name": "coderetreat",
+  "version": "0.0.0",
+  "description": "Coderetreat code",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node index.js"
+  },
+  "author": "Mark and Gabriel",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
